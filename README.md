@@ -16,74 +16,50 @@
 
 ---
 
-## 📊 Demo 预览
+## 📊 Demo 运行结果
 
 ### 1. ECG 心电图处理
 
-展示医学信号处理的完整流程：
+![ECG Results](ecg_results.png)
 
+**功能：**
 - 模拟 ECG 信号生成（心率 75 bpm）
 - 带通滤波（0.5-45 Hz）
 - R 波自动检测
 - 心率计算
 
-**核心代码：**
-```python
-# 带通滤波
-ecg_filtered = bandpass_filter(ecg_raw, fs, lowcut=0.5, highcut=45)
-
-# R 波检测
-r_peaks = detect_r_peaks(ecg_filtered, fs)
-
-# 计算心率
-heart_rate = 60 / np.mean(rr_intervals)  # 结果: 75 bpm
-```
+**运行结果：**
+- 检测到 R 波数量: 11
+- 平均 RR 间期: 799.7 ms
+- 估算心率: 75.0 bpm
 
 ---
 
 ### 2. 医学图像处理
 
-展示 CT/MRI 图像的预处理流程：
+![Medical Image Results](medical_image_results.png)
 
+**功能：**
 - 模拟 CT 图像生成（含噪声）
 - 高斯滤波去噪
 - Sobel 边缘检测
 - 阈值分割
 
-**核心代码：**
-```python
-# 高斯滤波
-filtered = ndimage.gaussian_filter(image, sigma=2)
-
-# 边缘检测
-edges = ndimage.sobel(filtered)
-
-# 阈值分割
-segmented = (filtered > 0.5).astype(float)
-```
+**运行结果：**
+- 图像尺寸: 256 × 256
+- 分割区域面积: 20886 像素
 
 ---
 
 ### 3. 实验数据自动化
 
-展示批量实验数据处理：
+![Experiment Results](experiment_results.png)
 
+**功能：**
 - 批量数据读取（CSV/Excel）
 - 统计分析（均值、标准差、变异系数）
 - 分组分析
 - 自动报告生成
-
-**核心代码：**
-```python
-# 统计分析
-stats = df.groupby('实验组').agg({
-    '测量值1': ['mean', 'std'],
-    '测量值2': ['mean', 'std']
-})
-
-# 生成报告
-generate_report(df, stats_df, group_stats)
-```
 
 **输出文件：**
 - `experiment_data.csv` - 原始数据
@@ -94,25 +70,18 @@ generate_report(df, stats_df, group_stats)
 
 ### 4. 信号频谱分析
 
-展示频域分析方法：
+![Spectrum Results](spectrum_results.png)
 
+**功能：**
 - 多频率信号生成（50/120/200 Hz）
 - FFT 快速傅里叶变换
 - 功率谱密度（Welch 方法）
 - 时频谱图（Spectrogram）
 
-**核心代码：**
-```python
-# FFT 变换
-fft_result = np.fft.fft(signal_data)
-fft_freq = np.fft.fftfreq(n, 1/fs)
-
-# 功率谱密度
-freqs, psd = signal.welch(signal_data, fs)
-
-# 时频分析
-f, t, Sxx = signal.spectrogram(signal_data, fs)
-```
+**检测结果：**
+- 50.0 Hz, 幅值: 0.995
+- 120.0 Hz, 幅值: 0.496
+- 200.0 Hz, 幅值: 0.283
 
 ---
 
